@@ -1,0 +1,225 @@
+<!-- This is the form element with all the required feilds and I am Storing the submitted data in local storage as well as logging it in the console -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>University Survey Form</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #006633;
+            --accent-color:  #FFCC33;
+        }
+        body {
+            background-color: #f8f9fa;
+            color: #333;
+        }
+        .form-container {
+            background-color: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .form-label.required::after {
+            content: "*";
+            color: var(--primary-color);
+            margin-left: 4px;
+        }
+        .btn-primary {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+        .btn-primary:hover {
+            background-color: #0f3b2a;
+            border-color: #0f3b2a;
+        }
+        h1 {
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 10px;
+        }
+        .form-check-input:checked {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+        .form-select:focus, .form-control:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 0.25rem rgba(24, 82, 57, 0.25);
+        }
+        .Button{
+            color: #006633; 
+            background-color: white; 
+            border: 2px solid #006633; 
+            padding: 10px 24px; 
+            cursor: pointer; 
+            display: inline-block; 
+            font-size: 16px; 
+            margin: 4px 2px; 
+            transition-duration: 0.4s; 
+            border-radius: 9px;
+        }
+        .Button:hover {
+            background-color: #006633;
+            color: white;
+        }
+    </style>
+    <script>
+        const form = document.querySelector("form");
+        const hello = () => {
+            const username = document.getElementById("username").value;
+            const address = document.getElementById("address").value;
+            const city = document.getElementById("city").value;
+            const state = document.getElementById("state").value;
+            const zip = document.getElementById("zip").value;
+            const phone = document.getElementById("phone").value;
+            const email = document.getElementById("email").value;
+            const url = document.getElementById("url").value;
+            const surveyDate = document.getElementById("survey-date").value;
+            const liked = Array.from(document.querySelectorAll("input[name='liked']:checked")).map(e => e.value);
+            const interest = document.querySelector("input[name='interest']:checked").value;
+            const graduationMonth = document.getElementById("graduation-month").value;
+            const graduationYear = document.getElementById("graduation-year").value;
+            const recommendation = document.getElementById("recommendation").value;
+            const comments = document.getElementById("comments").value;
+            const data = { username, address, city, state, zip, phone, email, url, surveyDate, liked, interest, graduationMonth, graduationYear, recommendation, comments };
+            localStorage.setItem("surveyData", JSON.stringify(data));
+            console.log(username, address, city, state, zip, phone, email, url, surveyDate, liked, interest, graduationMonth, graduationYear, recommendation, comments);
+        }
+    </script>
+</head>
+<body>
+    <div class="container mt-5 mb-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8 form-container">
+                <h1 class="text-center mb-4">University Survey Form</h1>
+                <form autocomplete="on">
+                    <div class="mb-3">
+                        <label for="username" class="form-label required">Username</label>
+                        <input type="text" class="form-control" id="username" name="username" required autofocus>
+                    </div>
+                    <div class="mb-3">
+                        <label for="address" class="form-label required">Street Address</label>
+                        <input type="text" class="form-control" id="address" name="address" required>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="city" class="form-label required">City</label>
+                            <input type="text" class="form-control" id="city" name="city" required>
+                        </div>
+                        <div class="col-md-3">
+                            <label for="state" class="form-label required">State</label>
+                            <input type="text" class="form-control" id="state" name="state" required>
+                        </div>
+                        <div class="col-md-3">
+                            <label for="zip" class="form-label required">ZIP</label>
+                            <input type="text" class="form-control" id="zip" name="zip" pattern="[0-9]{5}" placeholder="12345" required>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="phone" class="form-label required">Telephone Number</label>
+                        <input type="tel" class="form-control" id="phone" name="phone" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" placeholder="123-456-7890" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="email" class="form-label required">Email</label>
+                        <input type="email" class="form-control" id="email" name="email" placeholder="you@example.com" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="url" class="form-label">URL</label>
+                        <input type="url" class="form-control" id="url" name="url" placeholder="https://www.example.com">
+                    </div>
+                    <div class="mb-3">
+                        <label for="survey-date" class="form-label required">Date of Survey</label>
+                        <input type="date" class="form-control" id="survey-date" name="survey-date" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">What did you like most about the campus?</label>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="students" name="liked" value="students">
+                            <label class="form-check-label" for="students">Students</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="location" name="liked" value="location">
+                            <label class="form-check-label" for="location">Location</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="campus" name="liked" value="campus">
+                            <label class="form-check-label" for="campus">Campus</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="atmosphere" name="liked" value="atmosphere">
+                            <label class="form-check-label" for="atmosphere">Atmosphere</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="dorm-rooms" name="liked" value="dorm-rooms">
+                            <label class="form-check-label" for="dorm-rooms">Dorm Rooms</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="sports" name="liked" value="sports">
+                            <label class="form-check-label" for="sports">Sports</label>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label required">How did you become interested in the university?</label>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" id="friends" name="interest" value="friends" required>
+                            <label class="form-check-label" for="friends">Friends</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" id="television" name="interest" value="television">
+                            <label class="form-check-label" for="television">Television</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" id="internet" name="interest" value="internet">
+                            <label class="form-check-label" for="internet">Internet</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" id="other" name="interest" value="other">
+                            <label class="form-check-label" for="other">Other</label>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="graduation-month" class="form-label required">High School Graduation Month</label>
+                        <input class="form-control" list="months" id="graduation-month" name="graduation-month" required>
+                        <datalist id="months">
+                            <option value="January">
+                            <option value="February">
+                            <option value="March">
+                            <option value="April">
+                            <option value="May">
+                            <option value="June">
+                            <option value="July">
+                            <option value="August">
+                            <option value="September">
+                            <option value="October">
+                            <option value="November">
+                            <option value="December">
+                        </datalist>
+                    </div>
+                    <div class="mb-3">
+                        <label for="graduation-year" class="form-label required">High School Graduation Year</label>
+                        <input type="number" class="form-control" id="graduation-year" name="graduation-year" min="1900" max="2099" step="1" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="recommendation" class="form-label required">Likelihood of recommending this school</label>
+                        <select class="form-select" id="recommendation" name="recommendation" required>
+                            <option value="">Select an option</option>
+                            <option value="very-likely">Very Likely</option>
+                            <option value="likely">Likely</option>
+                            <option value="unlikely">Unlikely</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="comments" class="form-label">Additional Comments</label>
+                        <textarea class="form-control" id="comments" name="comments" rows="3"></textarea>
+                    </div>
+                    <div class="text-center">
+                        <button type="button" class="Button" onclick="hello()">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
